@@ -30,6 +30,11 @@ class _ButtonCityState extends State<ButtonCity> {
             ),
           ),
         ),
+        textStyle: MaterialStatePropertyAll(
+          TextStyle(
+            color: isActive ? Color(0xFF5B8C5A) : Colors.white,
+          ),
+        ),
       ),
       onPressed: () {
         setState(() {

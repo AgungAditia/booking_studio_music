@@ -4,10 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../model/studio.dart';
 import '../../model/widgets/text_form_field.dart';
 
 class BookingScreen extends StatefulWidget {
-  const BookingScreen({super.key});
+  const BookingScreen({
+    required this.studio,
+    super.key,
+  });
+
+  final Studio studio;
 
   @override
   State<BookingScreen> createState() => _BookingScreenState();
@@ -22,6 +28,7 @@ class _BookingScreenState extends State<BookingScreen> {
   late DateTime _startBookingTime;
   late DateTime _finishBookingTime;
   bool _showSummary = false;
+
 
   @override
   void initState() {
@@ -58,13 +65,57 @@ class _BookingScreenState extends State<BookingScreen> {
       ),
       body: ListView(
         children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                right: 20,
-                left: 20,
-                top: 20,
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Hero(
+                  tag: widget.studio.image,
+                  child: Image.asset(
+                    widget.studio.image,
+                    height: 250,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
+              Text(
+                widget.studio.name,
+                style: GoogleFonts.roboto(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 5,
+                ),
+                child: Text(
+                  widget.studio.address,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Divider(
+              color: Colors.black,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 20,
+              left: 20,
+              top: 20,
+            ),
+            child: Center(
               child: Text(
                 'Select a Date & Time',
                 style: GoogleFonts.roboto(
