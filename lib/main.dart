@@ -1,4 +1,4 @@
-
+import 'package:booking_studio_music/view/screens/history_booking.dart';
 import 'package:booking_studio_music/view/screens/home.dart';
 import 'package:booking_studio_music/view_model/provider/favorite_manager.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +20,16 @@ class MyApp extends StatelessWidget {
           create: (_) => Favorite(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.green,
+          ).copyWith(
+            primary: const Color(0xFF5B8C5A),
+          ),
+        ),
         debugShowCheckedModeBanner: false,
+        // home: const HomeScreen(),
         home: HomeScreen(),
       ),
     );

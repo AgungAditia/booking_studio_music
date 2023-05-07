@@ -1,13 +1,11 @@
 import 'package:booking_studio_music/model/studio.dart';
 import 'package:booking_studio_music/view/screens/booking.dart';
 import 'package:booking_studio_music/view/screens/history_booking.dart';
-import 'package:booking_studio_music/view/screens/ticket.dart';
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-
-import '../../model/widgets/button.dart';
 import '../../view_model/provider/favorite_manager.dart';
 // import 'booking_page.dart';
 
@@ -80,133 +78,606 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         //  Profile End
 
-        // Button City Start
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              ButtonCity(text: 'Depok'),
-              ButtonCity(text: 'Jakarta'),
-              ButtonCity(text: 'Bandung'),
-              ButtonCity(text: 'Semarang'),
-            ],
-          ),
-        ),
-        // Button City End
-
-        // Studio Start
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Studio',
-                style: GoogleFonts.roboto(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'See all',
-                style: GoogleFonts.roboto(
-                  fontSize: 20,
-                  color: const Color(0xFF5B8C5A),
-                ),
-              ),
-            ],
-          ),
-        ),
-        // Studio End
-
-        // Content Studio Booking Start
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Consumer<Favorite>(
-              builder: (context, favoriteStudios, child) {
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.7,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemCount: Studio.studios.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => BookingScreen(
-                            studio: Studio.studios[index],
+            padding: const EdgeInsets.only(
+              top: 20,
+            ),
+            child: Column(
+              children: [
+                DefaultTabController(
+                  length: 4,
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        ButtonsTabBar(
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 16),
+                          backgroundColor: const Color(0xFF5B8C5A),
+                          unselectedBackgroundColor: Colors.white,
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
+                          unselectedLabelStyle: const TextStyle(
+                            color: Color(0xFF5B8C5A),
+                            fontWeight: FontWeight.bold,
+                          ),
+                          borderWidth: 1,
+                          unselectedBorderColor: const Color(0xFF5B8C5A),
+                          tabs: const [
+                            Tab(text: 'Depok'),
+                            Tab(text: 'Jakarta'),
+                            Tab(text: 'Bandung'),
+                            Tab(text: 'Semarang'),
+                          ],
                         ),
-                      ),
-                      child: Stack(
-                        alignment: Alignment.topRight,
-                        children: [
-                          Card(
-                            elevation: 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Image.asset(
-                                  Studio.studios[index].image,
-                                  fit: BoxFit.cover,
+                        Expanded(
+                          child: TabBarView(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 30,
+                                  left: 20,
+                                  right: 20,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Text(
-                                    Studio.studios[index].name,
-                                    style: GoogleFonts.roboto(
-                                      fontWeight: FontWeight.bold,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Depok',
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF5B8C5A),
+                                          ),
+                                        ),
+                                        const Text('See all'),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text(
-                                      Studio.studios[index].address,
-                                      style: GoogleFonts.roboto(
-                                        fontWeight: FontWeight.w400,
+                                    const SizedBox(height: 20),
+                                    Expanded(
+                                      child: Consumer<Favorite>(
+                                        builder:
+                                            (context, favoriteStudios, child) {
+                                          return GridView.builder(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              childAspectRatio: 0.7,
+                                              crossAxisSpacing: 10,
+                                              mainAxisSpacing: 10,
+                                            ),
+                                            itemCount: Studio.studios.length,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () =>
+                                                    Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BookingScreen(
+                                                      studio:
+                                                          Studio.studios[index],
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Stack(
+                                                  alignment: Alignment.topRight,
+                                                  children: [
+                                                    Card(
+                                                      elevation: 2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .stretch,
+                                                        children: [
+                                                          Image.asset(
+                                                            Studio
+                                                                .studios[index]
+                                                                .image,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(10),
+                                                            child: Text(
+                                                              Studio
+                                                                  .studios[
+                                                                      index]
+                                                                  .name,
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              child: Text(
+                                                                Studio
+                                                                    .studios[
+                                                                        index]
+                                                                    .address,
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .roboto(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        favoriteStudios
+                                                            .toggleFavorite(
+                                                                index);
+                                                      },
+                                                      icon: Icon(
+                                                        favoriteStudios
+                                                                .isFavorite(
+                                                                    index)
+                                                            ? Icons.favorite
+                                                            : Icons
+                                                                .favorite_border,
+                                                        color: favoriteStudios
+                                                                .isFavorite(
+                                                                    index)
+                                                            ? Colors.red
+                                                            : Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 30,
+                                  left: 20,
+                                  right: 20,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Jakarta',
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF5B8C5A),
+                                          ),
+                                        ),
+                                        const Text('See all'),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Expanded(
+                                      child: Consumer<Favorite>(
+                                        builder:
+                                            (context, favoriteStudios, child) {
+                                          return GridView.builder(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              childAspectRatio: 0.7,
+                                              crossAxisSpacing: 10,
+                                              mainAxisSpacing: 10,
+                                            ),
+                                            itemCount: Studio.studios.length,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () =>
+                                                    Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BookingScreen(
+                                                      studio:
+                                                          Studio.studios[index],
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Stack(
+                                                  alignment: Alignment.topRight,
+                                                  children: [
+                                                    Card(
+                                                      elevation: 2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .stretch,
+                                                        children: [
+                                                          Image.asset(
+                                                            Studio
+                                                                .studios[index]
+                                                                .image,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(10),
+                                                            child: Text(
+                                                              Studio
+                                                                  .studios[
+                                                                      index]
+                                                                  .name,
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              child: Text(
+                                                                Studio
+                                                                    .studios[
+                                                                        index]
+                                                                    .address,
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .roboto(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        favoriteStudios
+                                                            .toggleFavorite(
+                                                                index);
+                                                      },
+                                                      icon: Icon(
+                                                        favoriteStudios
+                                                                .isFavorite(
+                                                                    index)
+                                                            ? Icons.favorite
+                                                            : Icons
+                                                                .favorite_border,
+                                                        color: favoriteStudios
+                                                                .isFavorite(
+                                                                    index)
+                                                            ? Colors.red
+                                                            : Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 30,
+                                  left: 20,
+                                  right: 20,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Bandung',
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF5B8C5A),
+                                          ),
+                                        ),
+                                        const Text('See all'),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Expanded(
+                                      child: Consumer<Favorite>(
+                                        builder:
+                                            (context, favoriteStudios, child) {
+                                          return GridView.builder(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              childAspectRatio: 0.7,
+                                              crossAxisSpacing: 10,
+                                              mainAxisSpacing: 10,
+                                            ),
+                                            itemCount: Studio.studios.length,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () =>
+                                                    Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BookingScreen(
+                                                      studio:
+                                                          Studio.studios[index],
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Stack(
+                                                  alignment: Alignment.topRight,
+                                                  children: [
+                                                    Card(
+                                                      elevation: 2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .stretch,
+                                                        children: [
+                                                          Image.asset(
+                                                            Studio
+                                                                .studios[index]
+                                                                .image,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(10),
+                                                            child: Text(
+                                                              Studio
+                                                                  .studios[
+                                                                      index]
+                                                                  .name,
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              child: Text(
+                                                                Studio
+                                                                    .studios[
+                                                                        index]
+                                                                    .address,
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .roboto(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        favoriteStudios
+                                                            .toggleFavorite(
+                                                                index);
+                                                      },
+                                                      icon: Icon(
+                                                        favoriteStudios
+                                                                .isFavorite(
+                                                                    index)
+                                                            ? Icons.favorite
+                                                            : Icons
+                                                                .favorite_border,
+                                                        color: favoriteStudios
+                                                                .isFavorite(
+                                                                    index)
+                                                            ? Colors.red
+                                                            : Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 30,
+                                  left: 20,
+                                  right: 20,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Semarang',
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF5B8C5A),
+                                          ),
+                                        ),
+                                        const Text('See all'),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Expanded(
+                                      child: Consumer<Favorite>(
+                                        builder:
+                                            (context, favoriteStudios, child) {
+                                          return GridView.builder(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              childAspectRatio: 0.7,
+                                              crossAxisSpacing: 10,
+                                              mainAxisSpacing: 10,
+                                            ),
+                                            itemCount: Studio.studios.length,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () =>
+                                                    Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BookingScreen(
+                                                      studio:
+                                                          Studio.studios[index],
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Stack(
+                                                  alignment: Alignment.topRight,
+                                                  children: [
+                                                    Card(
+                                                      elevation: 2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .stretch,
+                                                        children: [
+                                                          Image.asset(
+                                                            Studio
+                                                                .studios[index]
+                                                                .image,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(10),
+                                                            child: Text(
+                                                              Studio
+                                                                  .studios[
+                                                                      index]
+                                                                  .name,
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              child: Text(
+                                                                Studio
+                                                                    .studios[
+                                                                        index]
+                                                                    .address,
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .roboto(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        favoriteStudios
+                                                            .toggleFavorite(
+                                                                index);
+                                                      },
+                                                      icon: Icon(
+                                                        favoriteStudios
+                                                                .isFavorite(
+                                                                    index)
+                                                            ? Icons.favorite
+                                                            : Icons
+                                                                .favorite_border,
+                                                        color: favoriteStudios
+                                                                .isFavorite(
+                                                                    index)
+                                                            ? Colors.red
+                                                            : Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          IconButton(
-                            onPressed: () {
-                              favoriteStudios.toggleFavorite(index);
-                            },
-                            icon: Icon(
-                              favoriteStudios.isFavorite(index)
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: favoriteStudios.isFavorite(index)
-                                  ? Colors.red
-                                  : Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        // Content Studio Booking End
+        )
       ],
     ),
-    const HistoryBooking(),
+    HistoryBooking(
+      bookings: [],
+    ),
+
+
+
   ];
 
   @override
@@ -219,11 +690,9 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           TabItem(
             icon: Icons.home,
-            title: 'Home',
           ),
           TabItem(
             icon: Icons.calendar_today,
-            title: 'Booking',
           ),
         ],
         initialActiveIndex: 0,

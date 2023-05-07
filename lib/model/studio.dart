@@ -42,6 +42,4 @@ class Studio {
       address: 'Jalan Majapahit Nomor 34/2 Petojo Selatan, Gambir',
     ),
   ];
-
-  get id => null;
 }
