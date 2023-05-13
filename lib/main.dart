@@ -1,9 +1,9 @@
-import 'package:booking_studio_music/view/screens/history_booking.dart';
-import 'package:booking_studio_music/view/screens/home.dart';
 import 'package:booking_studio_music/view_model/provider/favorite_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'view/screens/home.dart';
+import 'view/widget/bottom_navigation_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         // home: const HomeScreen(),
-        home: HomeScreen(),
+        home: const BottomPage(),
       ),
     );
   }

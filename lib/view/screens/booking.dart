@@ -1,13 +1,11 @@
-import 'dart:convert';
-
-import 'package:booking_studio_music/view/screens/history_booking.dart';
-import 'package:booking_studio_music/view/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/studio.dart';
+import '../widget/bottom_navigation_bar.dart';
+import 'history_booking.dart';
+import 'home.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({
@@ -56,7 +54,7 @@ class _BookingScreenState extends State<BookingScreen> {
             child: Image.asset('assets/icons/succes.png'),
           ),
           content: SizedBox(
-            height: 320,
+            height: 280,
             width: 500,
             child: Center(
               child: Column(
@@ -138,24 +136,6 @@ class _BookingScreenState extends State<BookingScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Number',
-                        style: GoogleFonts.roboto(
-                          color: const Color(0xFF272727),
-                        ),
-                      ),
-                      Text(
-                        _numberController.text,
-                        style: GoogleFonts.roboto(
-                          color: const Color(0xFF272727),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
                         'Date',
                         style: GoogleFonts.roboto(
                           color: const Color(0xFF272727),
@@ -225,6 +205,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   'email': _emailController.text,
                   'number': _numberController.text,
                   'studio': widget.studio.name,
+                  'image': widget.studio.image,
                   'date': DateFormat.yMMMd().format(_selectedDate),
                   'time':
                       '${DateFormat.jm().format(_startBookingTime)} - ${DateFormat.jm().format(_finishBookingTime)}',
@@ -266,7 +247,7 @@ class _BookingScreenState extends State<BookingScreen> {
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
+                builder: (context) => const BottomPage(),
               ),
             );
           },
@@ -361,13 +342,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                   hintText: 'Your name ...',
                                   border: OutlineInputBorder(),
                                 ),
-                                validator: (value) {
-                                  if (value != null && value.length < 4) {
-                                    return 'Enter at least 4 characters';
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                // validator: (value) {
+                                //   if (value != null && value.length < 4) {
+                                //     return 'Enter at least 4 characters';
+                                //   } else {
+                                //     return null;
+                                //   }
+                                // },
                               ),
                               const SizedBox(height: 10),
                               TextFormField(
@@ -377,13 +358,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                   hintText: 'Your email ...',
                                   border: OutlineInputBorder(),
                                 ),
-                                validator: (value) {
-                                  if (value != null && value.length < 4) {
-                                    return 'Enter at least 4 characters';
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                // validator: (value) {
+                                //   if (value != null && value.length < 4) {
+                                //     return 'Enter at least 4 characters';
+                                //   } else {
+                                //     return null;
+                                //   }
+                                // },
                               ),
                               const SizedBox(height: 10),
                               TextFormField(
@@ -393,13 +374,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                   hintText: 'Your number ...',
                                   border: OutlineInputBorder(),
                                 ),
-                                validator: (value) {
-                                  if (value != null && value.length < 4) {
-                                    return 'Enter at least 4 characters';
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                // validator: (value) {
+                                //   if (value != null && value.length < 4) {
+                                //     return 'Enter at least 4 characters';
+                                //   } else {
+                                //     return null;
+                                //   }
+                                // },
                               ),
                             ],
                           ),
